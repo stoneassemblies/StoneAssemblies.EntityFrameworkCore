@@ -34,8 +34,4 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\StoneAssemblies.Hikvision\StoneAssemblies.Hikvision.csproj" />
-	</ItemGroup>
 </Project>
