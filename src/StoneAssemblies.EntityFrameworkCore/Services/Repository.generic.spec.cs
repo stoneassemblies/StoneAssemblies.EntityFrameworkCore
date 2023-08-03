@@ -39,6 +39,22 @@
         }
 
         /// <summary>
+        /// The single.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The <see cref="TEntity?"/>.
+        /// </returns>
+        public TEntity? Single(ISingleResultSpecification<TEntity> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(_context.Set<TEntity>());
+        }
+
+        /// <summary>
         /// Delete entities match with the specified predicate.
         /// </summary>
         /// <param name="specification">
