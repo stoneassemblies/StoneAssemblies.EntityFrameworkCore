@@ -65,7 +65,7 @@
         {
             return (IRepository<TEntity>)this.repositories.GetOrAdd(
                 typeof(TEntity),
-                _ => (IRepository)this.serviceProvider.GetRequiredService(typeof(IRepository<TEntity>)));
+                _ => (IRepository)this.serviceProvider.GetRequiredService(typeof(IRepository<TEntity, TDbContext>)));
         }
 
         /// <summary>
