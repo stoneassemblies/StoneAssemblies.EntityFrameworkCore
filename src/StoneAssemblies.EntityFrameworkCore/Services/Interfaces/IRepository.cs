@@ -70,7 +70,7 @@
         /// <returns>
         /// <c>True</c> if at least one entity matches with the predicates otherwise <c>False</c>.
         /// </returns>
-        public Task<bool> ContainsAsync(IQueryableSpecification<TEntity> specification)
+        public Task<bool> ContainsAsync(IQueryableSpecification<TEntity> specification);
 
         /// <summary>
         /// Counts entity matches with the specified specification.
