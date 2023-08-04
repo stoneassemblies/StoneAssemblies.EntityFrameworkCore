@@ -8,6 +8,8 @@
 
     using Microsoft.EntityFrameworkCore.Storage;
 
+    using StoneAssemblies.EntityFrameworkCore.Specifications.Interfaces;
+
     /// <summary>
     /// The Repository interface.
     /// </summary>
@@ -58,6 +60,49 @@
         /// <c>True</c> if at least one entity matches with the predicates otherwise <c>False</c>.
         /// </returns>
         bool Contains(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Indicates whether at least one entity matches with the specified specification.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// <c>True</c> if at least one entity matches with the predicates otherwise <c>False</c>.
+        /// </returns>
+        public Task<bool> ContainsAsync(IQueryableSpecification<TEntity> specification)
+
+        /// <summary>
+        /// Counts entity matches with the specified specification.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        int Count(IQueryableSpecification<TEntity> specification);
+
+        /// <summary>
+        /// Counts entity matches with the specified specification.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        Task<int> CountAsync(IQueryableSpecification<TEntity> specification);
+
+        /// <summary>
+        /// Counts entity matches with the predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicate.
+        /// </param>
+        int Count(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Counts entity matches with the predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicate.
+        /// </param>
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
         /// Delete an entity.
@@ -143,6 +188,17 @@
         /// The entity.
         /// </param>
         void Update(TEntity entity);
+
+        /// <summary>
+        /// Indicates whether at least one entity matches with the specified predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicate.
+        /// </param>
+        /// <returns>
+        /// <c>True</c> if at least one entity matches with the predicates otherwise <c>False</c>.
+        /// </returns>
+        Task<bool> ContainsAsync(Expression<Func<TEntity, bool>> predicate);
     }
 
     /// <summary>

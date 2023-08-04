@@ -12,7 +12,6 @@
 
     using StoneAssemblies.EntityFrameworkCore.Extensions;
     using StoneAssemblies.EntityFrameworkCore.Services.Interfaces;
-    using StoneAssemblies.EntityFrameworkCore.Specifications.Interfaces;
 
     /// <summary>
     /// The repository.
@@ -29,12 +28,12 @@
         /// <summary>
         /// The database context.
         /// </summary>
-        private readonly TDbContext _context;
+        private readonly TDbContext context;
 
         /// <summary>
         /// List of dirty entities.
         /// </summary>
-        private readonly List<TEntity> _dirtyEntities = new List<TEntity>();
+        private readonly List<TEntity> dirtyEntities = new List<TEntity>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StoneAssemblies.EntityFrameworkCore.Services.Repository{TEntity,TDbContext}" /> class.
@@ -46,7 +45,7 @@
         {
             ArgumentNullException.ThrowIfNull(context);
 
-            this._context = context;
+            this.context = context;
         }
 
         /// <summary>
@@ -59,7 +58,7 @@
         {
             ArgumentNullException.ThrowIfNull(entity);
 
-            this._dirtyEntities.Add(this._context.Set<TEntity>().Add(entity).Entity);
+            this.dirtyEntities.Add(this.context.Set<TEntity>().Add(entity).Entity);
         }
 
         /// <summary>
@@ -70,7 +69,7 @@
         /// </returns>
         public IQueryable<TEntity> All()
         {
-            return this._context.Set<TEntity>();
+            return this.context.Set<TEntity>();
         }
 
         /// <summary>
@@ -81,7 +80,7 @@
         /// </returns>
         public IDbContextTransaction BeginTransaction()
         {
-            return this._context.Database.BeginTransaction();
+            return this.context.Database.BeginTransaction();
         }
 
         /// <summary>
@@ -95,14 +94,13 @@
         /// </returns>
         public IDbContextTransaction BeginTransaction(IsolationLevel isolationLevel)
         {
-            return this._context.Database.BeginTransaction();
+            return this.context.Database.BeginTransaction();
         }
 
         /// <summary>
         /// Indicates whether at least one entity matches with the specified predicate.
         /// </summary>
         /// <param name="predicate">
-        /// S
         /// The predicate.
         /// </param>
         /// <returns>
@@ -112,7 +110,23 @@
         {
             ArgumentNullException.ThrowIfNull(predicate);
 
-            return this._context.Set<TEntity>().Any(predicate);
+            return this.context.Set<TEntity>().Any(predicate);
+        }
+
+        /// <summary>
+        /// Indicates whether at least one entity matches with the specified predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicate.
+        /// </param>
+        /// <returns>
+        /// <c>True</c> if at least one entity matches with the predicates otherwise <c>False</c>.
+        /// </returns>
+        public Task<bool> ContainsAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            ArgumentNullException.ThrowIfNull(predicate);
+
+            return this.context.Set<TEntity>().AnyAsync(predicate);
         }
 
         /// <summary>
@@ -125,7 +139,7 @@
         {
             ArgumentNullException.ThrowIfNull(entity);
 
-            this._context.Set<TEntity>().Remove(entity);
+            this.context.Set<TEntity>().Remove(entity);
         }
 
         /// <summary>
@@ -138,7 +152,7 @@
         {
             ArgumentNullException.ThrowIfNull(predicate);
 
-            this._context.Set<TEntity>().RemoveRange(this.Find(predicate));
+            this.context.Set<TEntity>().RemoveRange(this.Find(predicate));
         }
 
         /// <summary>
@@ -154,7 +168,33 @@
         {
             ArgumentNullException.ThrowIfNull(predicate);
 
-            return this._context.Set<TEntity>().Where(predicate);
+            return this.context.Set<TEntity>().Where(predicate);
+        }
+
+        /// <summary>
+        /// Counts entity matches with the predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicate.
+        /// </param>
+        public int Count(Expression<Func<TEntity, bool>> predicate)
+        {
+            ArgumentNullException.ThrowIfNull(predicate);
+
+            return this.context.Set<TEntity>().Where(predicate).Count();
+        }
+
+        /// <summary>
+        /// Counts entity matches with the predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicate.
+        /// </param>
+        public Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            ArgumentNullException.ThrowIfNull(predicate);
+
+            return this.context.Set<TEntity>().Where(predicate).CountAsync();
         }
 
         /// <summary>
@@ -162,7 +202,7 @@
         /// </summary>
         public async Task SaveChangesAsync()
         {
-            await this._context.SaveChangesAsync();
+            await this.context.SaveChangesAsync();
 
             await this.SynchronizeEntitiesAsync();
         }
@@ -171,19 +211,19 @@
         {
             ArgumentNullException.ThrowIfNull(entity);
 
-            var keyValues = this._context.GetPrimaryKeyValues(entity).ToArray();
+            var keyValues = this.context.GetPrimaryKeyValues(entity).ToArray();
 
             if (keyValues.Length > 0)
             {
-                var storedEntity = this._context.Set<TEntity>().Find(keyValues);
+                var storedEntity = this.context.Set<TEntity>().Find(keyValues);
                 if (storedEntity is not null)
                 {
-                    this._context.UpdateEntity(storedEntity, entity, ignoreProperties);
+                    this.context.UpdateEntity(storedEntity, entity, ignoreProperties);
                     return storedEntity;
                 }
             }
 
-            return this._context.Add(entity).Entity;
+            return this.context.Add(entity).Entity;
         }
 
         /// <summary>
@@ -199,7 +239,7 @@
         {
             ArgumentNullException.ThrowIfNull(predicate);
 
-            return this._context.Set<TEntity>().Single(predicate);
+            return this.context.Set<TEntity>().Single(predicate);
         }
 
         /// <summary>
@@ -212,7 +252,7 @@
         {
             ArgumentNullException.ThrowIfNull(entity);
 
-            return this._context.Entry(entity).ReloadAsync();
+            return this.context.Entry(entity).ReloadAsync();
         }
 
         /// <summary>
@@ -220,12 +260,12 @@
         /// </summary>
         public async Task SynchronizeEntitiesAsync()
         {
-            foreach (var dirtyEntity in this._dirtyEntities)
+            foreach (var dirtyEntity in this.dirtyEntities)
             {
                 await this.SynchronizeEntityAsync(dirtyEntity);
             }
 
-            this._dirtyEntities.Clear();
+            this.dirtyEntities.Clear();
         }
 
         /// <summary>
@@ -238,11 +278,11 @@
         {
             ArgumentNullException.ThrowIfNull(entity);
 
-            var keyValues = this._context.GetPrimaryKeyValues(entity).ToArray();
-            var storedEntity = this._context.Set<TEntity>().Find(keyValues);
+            var keyValues = this.context.GetPrimaryKeyValues(entity).ToArray();
+            var storedEntity = this.context.Set<TEntity>().Find(keyValues);
             if (storedEntity is not null)
             {
-                this._context.UpdateEntity(storedEntity, entity);
+                this.context.UpdateEntity(storedEntity, entity);
             }
         }
     }
