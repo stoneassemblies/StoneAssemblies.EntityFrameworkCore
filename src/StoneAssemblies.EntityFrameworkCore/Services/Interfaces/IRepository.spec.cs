@@ -24,24 +24,46 @@
         /// <summary>
         /// Finds entities by specification.
         /// </summary>
-        /// <param name="specification">
+        /// <param name="enumerableResultSpecification">
         /// The specification.
         /// </param>
         /// <returns>
         /// The entities.
         /// </returns>
-        IEnumerable<TEntity>? Find(IEnumerableSpecification<TEntity> specification);
+        IEnumerable<TEntity>? Find(IEnumerableResultSpecification<TEntity> enumerableResultSpecification);
 
         /// <summary>
         /// Finds entities by specification.
         /// </summary>
-        /// <param name="specification">
+        /// <param name="listAsyncResultSpecification">
         /// The specification.
         /// </param>
         /// <returns>
         /// The entities.
         /// </returns>
-        TEntity? Single(ISingleResultSpecification<TEntity> specification);
+        Task<List<TEntity>?> FindAsync(IListAsyncResultSpecification<TEntity> listAsyncResultSpecification);
+
+        /// <summary>
+        /// Finds entities by specification.
+        /// </summary>
+        /// <param name="singleResultSpecification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        TEntity? Single(ISingleResultSpecification<TEntity> singleResultSpecification);
+
+        /// <summary>
+        /// Finds entities by specification async.
+        /// </summary>
+        /// <param name="singleResultAsyncSpecification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        Task<TEntity?> SingleAsync(ISingleResultAsyncSpecification<TEntity> singleResultAsyncSpecification);
 
         /// <summary>
         /// Delete entities match with the specified predicate.

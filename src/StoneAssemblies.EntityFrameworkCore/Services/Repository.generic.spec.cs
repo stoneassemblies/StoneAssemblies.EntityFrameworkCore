@@ -71,31 +71,65 @@
         /// <summary>
         /// Finds entities by specification.
         /// </summary>
-        /// <param name="specification">
+        /// <param name="enumerableResultSpecification">
         /// The specification.
         /// </param>
         /// <returns>
         /// The entities.
         /// </returns>
-        public IEnumerable<TEntity>? Find(IEnumerableSpecification<TEntity> specification)
+        public IEnumerable<TEntity>? Find(IEnumerableResultSpecification<TEntity> enumerableResultSpecification)
         {
-            ArgumentNullException.ThrowIfNull(specification);
+            ArgumentNullException.ThrowIfNull(enumerableResultSpecification);
 
-            return specification.Build().Invoke(this.context.Set<TEntity>());
+            return enumerableResultSpecification.Build().Invoke(this.context.Set<TEntity>());
+        }
+
+        /// <summary>
+        /// Finds entities by specification async.
+        /// </summary>
+        /// <param name="asyncResultSpecification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        public Task<List<TEntity>?> FindAsync(IListAsyncResultSpecification<TEntity> asyncResultSpecification)
+        {
+            ArgumentNullException.ThrowIfNull(asyncResultSpecification);
+
+            return asyncResultSpecification.Build().Invoke(this.context.Set<TEntity>());
         }
 
         /// <summary>
         /// The single.
         /// </summary>
-        /// <param name="specification">
+        /// <param name="singleResultSpecification">
         /// The specification.
         /// </param>
         /// <returns>
         /// The <see cref="TEntity"/>.
         /// </returns>
-        public TEntity? Single(ISingleResultSpecification<TEntity> specification)
+        public TEntity? Single(ISingleResultSpecification<TEntity> singleResultSpecification)
         {
-            return specification.Build().Invoke(this.context.Set<TEntity>());
+            ArgumentNullException.ThrowIfNull(singleResultSpecification);
+
+            return singleResultSpecification.Build().Invoke(this.context.Set<TEntity>());
+        }
+
+        /// <summary>
+        /// The single.
+        /// </summary>
+        /// <param name="singleResultAsyncSpecification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The <see cref="TEntity"/>.
+        /// </returns>
+        public Task<TEntity?> SingleAsync(ISingleResultAsyncSpecification<TEntity> singleResultAsyncSpecification)
+        {
+            ArgumentNullException.ThrowIfNull(singleResultAsyncSpecification);
+
+            return singleResultAsyncSpecification.Build().Invoke(this.context.Set<TEntity>());
         }
 
         /// <summary>

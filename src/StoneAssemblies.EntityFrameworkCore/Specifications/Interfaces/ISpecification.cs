@@ -18,7 +18,7 @@
         /// The build.
         /// </summary>
         /// <returns>
-        /// The <see cref="Func"/>.
+        /// The <see cref="Func{TQueryable, TResult}"/>.
         /// </returns>
         Func<IQueryable<TEntity>, TResult?> Build();
     }

@@ -8,7 +8,7 @@
     /// <typeparam name="TEntity">
     /// The entity type.
     /// </typeparam>
-    public interface IEnumerableSpecification<TEntity> : ISpecification<TEntity, IEnumerable<TEntity>>
+    public interface IEnumerableResultSpecification<TEntity> : ISpecification<TEntity, IEnumerable<TEntity>>
     {
     }
 }

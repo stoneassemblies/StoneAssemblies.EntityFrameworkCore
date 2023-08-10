@@ -12,6 +12,7 @@
 
     using StoneAssemblies.EntityFrameworkCore.Extensions;
     using StoneAssemblies.EntityFrameworkCore.Services.Interfaces;
+    using StoneAssemblies.EntityFrameworkCore.Specifications.Interfaces;
 
     /// <summary>
     /// The repository.
