@@ -9,10 +9,7 @@
     /// <typeparam name="TEntity">
     /// The entity type.
     /// </typeparam>
-    /// <typeparam name="TResult">
-    /// The result
-    /// </typeparam>
-    public interface ISpecification<in TEntity, out TResult>
+    public interface ISpecification<TEntity>
     {
         /// <summary>
         /// The build.
@@ -20,6 +17,6 @@
         /// <returns>
         /// The <see cref="Func{TQueryable, TResult}"/>.
         /// </returns>
-        Func<IQueryable<TEntity>, TResult?> Build();
+        Func<IQueryable<TEntity>, IQueryable<TEntity>> Build();
     }
 }

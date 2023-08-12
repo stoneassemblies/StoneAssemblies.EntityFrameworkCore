@@ -1,7 +1,5 @@
 ﻿namespace StoneAssemblies.EntityFrameworkCore.Services.Interfaces
 {
-    using System.Linq.Expressions;
-
     using StoneAssemblies.EntityFrameworkCore.Specifications.Interfaces;
 
     /// <summary>
@@ -21,73 +19,97 @@
         /// <returns>
         /// <c>True</c> if at least one entity matches with the predicates otherwise <c>False</c>.
         /// </returns>
-        public bool Contains(IQueryableSpecification<TEntity> specification);
+        public bool Contains(ISpecification<TEntity> specification);
+
+        /// <summary>
+        /// Indicates whether at least one entity matches with the specified specification.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// <c>True</c> if at least one entity matches with the predicates otherwise <c>False</c>.
+        /// </returns>
+        public Task<bool> ContainsAsync(ISpecification<TEntity> specification);
+
+        /// <summary>
+        /// Counts entity matches with the specified specification.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        int Count(ISpecification<TEntity> specification);
+
+        /// <summary>
+        /// Counts entity matches with the specified specification.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        Task<int> CountAsync(ISpecification<TEntity> specification);
 
         /// <summary>
         /// Finds entities by specification.
         /// </summary>
-        /// <param name="enumerableResultSpecification">
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        IEnumerable<TEntity>? Find(ISpecification<TEntity> specification);
+
+        /// <summary>
+        /// Finds entities by specification.
+        /// </summary>
+        /// <param name="specification">
         /// The specification.
         /// </param>
         /// <returns>
         /// The entities.
         /// </returns>
-        IEnumerable<TEntity>? Find(IEnumerableResultSpecification<TEntity> enumerableResultSpecification);
+        Task<IEnumerable<TEntity>> FindAsync(ISpecification<TEntity> specification);
 
         /// <summary>
         /// Finds entities by specification.
         /// </summary>
-        /// <param name="listAsyncResultSpecification">
+        /// <param name="specification">
         /// The specification.
         /// </param>
         /// <returns>
         /// The entities.
         /// </returns>
-        Task<List<TEntity>?> FindAsync(IListAsyncResultSpecification<TEntity> listAsyncResultSpecification);
-
-        /// <summary>
-        /// Finds entities by specification.
-        /// </summary>
-        /// <param name="singleResultSpecification">
-        /// The specification.
-        /// </param>
-        /// <returns>
-        /// The entities.
-        /// </returns>
-        TEntity Single(ISingleResultSpecification<TEntity> singleResultSpecification);
+        TEntity Single(ISpecification<TEntity> specification);
 
         /// <summary>
         /// Finds entities by specification async.
         /// </summary>
-        /// <param name="singleResultAsyncSpecification">
+        /// <param name="specification">
         /// The specification.
         /// </param>
         /// <returns>
         /// The entities.
         /// </returns>
-        Task<TEntity> SingleAsync(ISingleResultAsyncSpecification<TEntity> singleResultAsyncSpecification);
+        Task<TEntity> SingleAsync(ISpecification<TEntity> specification);
 
         /// <summary>
         /// Finds entities by specification.
         /// </summary>
-        /// <param name="singleResultSpecification">
+        /// <param name="specification">
         /// The specification.
         /// </param>
         /// <returns>
         /// The entities.
         /// </returns>
-        TEntity? SingleOrDefault(ISingleResultSpecification<TEntity> singleResultSpecification);
+        TEntity? SingleOrDefault(ISpecification<TEntity> specification);
 
         /// <summary>
         /// Finds entities by specification async.
         /// </summary>
-        /// <param name="singleResultAsyncSpecification">
+        /// <param name="specification">
         /// The specification.
         /// </param>
         /// <returns>
         /// The entities.
         /// </returns>
-        Task<TEntity?> SingleOrDefaultAsync(ISingleResultAsyncSpecification<TEntity> singleResultAsyncSpecification);
+        Task<TEntity?> SingleOrDefaultAsync(ISpecification<TEntity> specification);
 
         /// <summary>
         /// Delete entities match with the specified predicate.
@@ -95,28 +117,6 @@
         /// <param name="specification">
         /// The specification
         /// </param>
-        void Delete(IQueryableSpecification<TEntity> specification);
-
-        /// <summary>
-        /// Finds a single entity matches with the specified predicate.
-        /// </summary>
-        /// <param name="predicate">
-        /// The predicates
-        /// </param>
-        /// <returns>
-        /// The entity.
-        /// </returns>
-        Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate);
-
-        /// <summary>
-        /// Finds a single entity matches with the specified predicate.
-        /// </summary>
-        /// <param name="predicate">
-        /// The predicates
-        /// </param>
-        /// <returns>
-        /// The entity.
-        /// </returns>
-        Task<TEntity?> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+        void Delete(ISpecification<TEntity> specification);
     }
 }

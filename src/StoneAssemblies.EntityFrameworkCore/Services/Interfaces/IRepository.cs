@@ -62,33 +62,6 @@
         bool Contains(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
-        /// Indicates whether at least one entity matches with the specified specification.
-        /// </summary>
-        /// <param name="specification">
-        /// The specification.
-        /// </param>
-        /// <returns>
-        /// <c>True</c> if at least one entity matches with the predicates otherwise <c>False</c>.
-        /// </returns>
-        public Task<bool> ContainsAsync(IQueryableSpecification<TEntity> specification);
-
-        /// <summary>
-        /// Counts entity matches with the specified specification.
-        /// </summary>
-        /// <param name="specification">
-        /// The specification.
-        /// </param>
-        int Count(IQueryableSpecification<TEntity> specification);
-
-        /// <summary>
-        /// Counts entity matches with the specified specification.
-        /// </summary>
-        /// <param name="specification">
-        /// The specification.
-        /// </param>
-        Task<int> CountAsync(IQueryableSpecification<TEntity> specification);
-
-        /// <summary>
         /// Counts entity matches with the predicate.
         /// </summary>
         /// <param name="predicate">
@@ -141,6 +114,28 @@
         /// The entity.
         /// </returns>
         TEntity Single(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Finds a single entity matches with the specified predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicates
+        /// </param>
+        /// <returns>
+        /// The entity.
+        /// </returns>
+        Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Finds a single entity matches with the specified predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicates
+        /// </param>
+        /// <returns>
+        /// The entity.
+        /// </returns>
+        Task<TEntity?> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
         /// Synchronize dirty entity.
