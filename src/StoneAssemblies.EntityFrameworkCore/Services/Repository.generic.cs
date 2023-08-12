@@ -12,7 +12,6 @@
 
     using StoneAssemblies.EntityFrameworkCore.Extensions;
     using StoneAssemblies.EntityFrameworkCore.Services.Interfaces;
-    using StoneAssemblies.EntityFrameworkCore.Specifications.Interfaces;
 
     /// <summary>
     /// The repository.
@@ -208,6 +207,18 @@
             await this.SynchronizeEntitiesAsync();
         }
 
+        /// <summary>
+        /// Try to add or update and entity.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        /// <param name="ignoreProperties">
+        /// The properties to ignore.
+        /// </param>
+        /// <returns>
+        /// The added or updated entity.
+        /// </returns>
         public TEntity TryAddOrUpdate(TEntity entity, params string[] ignoreProperties)
         {
             ArgumentNullException.ThrowIfNull(entity);
@@ -241,6 +252,38 @@
             ArgumentNullException.ThrowIfNull(predicate);
 
             return this.context.Set<TEntity>().Single(predicate);
+        }
+
+        /// <summary>
+        /// Finds a single entity matches with the specified predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicates
+        /// </param>
+        /// <returns>
+        /// The entity.
+        /// </returns>
+        public Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            ArgumentNullException.ThrowIfNull(predicate);
+
+            return this.context.Set<TEntity>().SingleAsync(predicate);
+        }
+
+        /// <summary>
+        /// Finds a single entity matches with the specified predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicates
+        /// </param>
+        /// <returns>
+        /// The entity.
+        /// </returns>
+        public Task<TEntity?> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            ArgumentNullException.ThrowIfNull(predicate);
+
+            return this.context.Set<TEntity>().SingleOrDefaultAsync(predicate);
         }
 
         /// <summary>

@@ -109,11 +109,11 @@
         /// <returns>
         /// The <see cref="TEntity"/>.
         /// </returns>
-        public TEntity? Single(ISingleResultSpecification<TEntity> singleResultSpecification)
+        public TEntity Single(ISingleResultSpecification<TEntity> singleResultSpecification)
         {
             ArgumentNullException.ThrowIfNull(singleResultSpecification);
 
-            return singleResultSpecification.Build().Invoke(this.context.Set<TEntity>());
+            return singleResultSpecification.Build().Invoke(this.context.Set<TEntity>())!;
         }
 
         /// <summary>
@@ -125,7 +125,21 @@
         /// <returns>
         /// The <see cref="TEntity"/>.
         /// </returns>
-        public Task<TEntity?> SingleAsync(ISingleResultAsyncSpecification<TEntity> singleResultAsyncSpecification)
+        public Task<TEntity> SingleAsync(ISingleResultAsyncSpecification<TEntity> singleResultAsyncSpecification)
+        {
+            ArgumentNullException.ThrowIfNull(singleResultAsyncSpecification);
+
+            return singleResultAsyncSpecification.Build().Invoke(this.context.Set<TEntity>())!;
+        }
+
+        public TEntity? SingleOrDefault(ISingleResultSpecification<TEntity> singleResultAsyncSpecification)
+        {
+            ArgumentNullException.ThrowIfNull(singleResultAsyncSpecification);
+
+            return singleResultAsyncSpecification.Build().Invoke(this.context.Set<TEntity>());
+        }
+
+        public Task<TEntity?> SingleOrDefaultAsync(ISingleResultAsyncSpecification<TEntity> singleResultAsyncSpecification)
         {
             ArgumentNullException.ThrowIfNull(singleResultAsyncSpecification);
 
@@ -142,7 +156,7 @@
         {
             ArgumentNullException.ThrowIfNull(specification);
 
-            this.context.Set<TEntity>().RemoveRange(specification.Build().Invoke(this.context.Set<TEntity>()));
+            this.context.Set<TEntity>().RemoveRange(specification.Build().Invoke(this.context.Set<TEntity>())!);
         }
     }
 }

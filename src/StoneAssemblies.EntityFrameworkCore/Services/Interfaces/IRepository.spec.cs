@@ -1,5 +1,7 @@
 ﻿namespace StoneAssemblies.EntityFrameworkCore.Services.Interfaces
 {
+    using System.Linq.Expressions;
+
     using StoneAssemblies.EntityFrameworkCore.Specifications.Interfaces;
 
     /// <summary>
@@ -52,7 +54,7 @@
         /// <returns>
         /// The entities.
         /// </returns>
-        TEntity? Single(ISingleResultSpecification<TEntity> singleResultSpecification);
+        TEntity Single(ISingleResultSpecification<TEntity> singleResultSpecification);
 
         /// <summary>
         /// Finds entities by specification async.
@@ -63,7 +65,29 @@
         /// <returns>
         /// The entities.
         /// </returns>
-        Task<TEntity?> SingleAsync(ISingleResultAsyncSpecification<TEntity> singleResultAsyncSpecification);
+        Task<TEntity> SingleAsync(ISingleResultAsyncSpecification<TEntity> singleResultAsyncSpecification);
+
+        /// <summary>
+        /// Finds entities by specification.
+        /// </summary>
+        /// <param name="singleResultSpecification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        TEntity? SingleOrDefault(ISingleResultSpecification<TEntity> singleResultSpecification);
+
+        /// <summary>
+        /// Finds entities by specification async.
+        /// </summary>
+        /// <param name="singleResultAsyncSpecification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        Task<TEntity?> SingleOrDefaultAsync(ISingleResultAsyncSpecification<TEntity> singleResultAsyncSpecification);
 
         /// <summary>
         /// Delete entities match with the specified predicate.
@@ -72,5 +96,27 @@
         /// The specification
         /// </param>
         void Delete(IQueryableSpecification<TEntity> specification);
+
+        /// <summary>
+        /// Finds a single entity matches with the specified predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicates
+        /// </param>
+        /// <returns>
+        /// The entity.
+        /// </returns>
+        Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Finds a single entity matches with the specified predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicates
+        /// </param>
+        /// <returns>
+        /// The entity.
+        /// </returns>
+        Task<TEntity?> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }
