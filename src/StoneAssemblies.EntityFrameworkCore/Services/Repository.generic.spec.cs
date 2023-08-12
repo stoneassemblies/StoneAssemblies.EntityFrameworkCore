@@ -39,7 +39,7 @@
         {
             ArgumentNullException.ThrowIfNull(specification);
 
-            return specification.Build().Invoke(this.context.Set<TEntity>())!.AnyAsync();
+            return specification.Build().Invoke(this.context.Set<TEntity>()).AnyAsync();
         }
 
         /// <summary>
@@ -52,7 +52,7 @@
         {
             ArgumentNullException.ThrowIfNull(specification);
 
-            return specification.Build().Invoke(this.context.Set<TEntity>())!.Count();
+            return specification.Build().Invoke(this.context.Set<TEntity>()).Count();
         }
 
         /// <summary>
@@ -65,7 +65,7 @@
         {
             ArgumentNullException.ThrowIfNull(specification);
 
-            return specification.Build().Invoke(this.context.Set<TEntity>())!.CountAsync();
+            return specification.Build().Invoke(this.context.Set<TEntity>()).CountAsync();
         }
 
         /// <summary>
@@ -81,7 +81,7 @@
         {
             ArgumentNullException.ThrowIfNull(specification);
 
-            return specification.Build().Invoke(this.context.Set<TEntity>())?.ToList()!;
+            return specification.Build().Invoke(this.context.Set<TEntity>()).ToList();
         }
 
         /// <summary>
@@ -97,7 +97,7 @@
         {
             ArgumentNullException.ThrowIfNull(specification);
 
-            return await specification.Build().Invoke(this.context.Set<TEntity>())!.ToListAsync();
+            return await specification.Build().Invoke(this.context.Set<TEntity>()).ToListAsync();
         }
 
         /// <summary>
@@ -113,7 +113,7 @@
         {
             ArgumentNullException.ThrowIfNull(specification);
 
-            return specification.Build().Invoke(this.context.Set<TEntity>())!.Single();
+            return specification.Build().Invoke(this.context.Set<TEntity>()).Single();
         }
 
         /// <summary>
@@ -129,7 +129,7 @@
         {
             ArgumentNullException.ThrowIfNull(specification);
 
-            return specification.Build().Invoke(this.context.Set<TEntity>())!.SingleAsync();
+            return specification.Build().Invoke(this.context.Set<TEntity>()).SingleAsync();
         }
 
         /// <summary>
@@ -145,7 +145,7 @@
         {
             ArgumentNullException.ThrowIfNull(specification);
 
-            return specification.Build().Invoke(this.context.Set<TEntity>())!.SingleOrDefault();
+            return specification.Build().Invoke(this.context.Set<TEntity>()).SingleOrDefault();
         }
 
         /// <summary>
@@ -161,7 +161,7 @@
         {
             ArgumentNullException.ThrowIfNull(specification);
 
-            return specification.Build().Invoke(this.context.Set<TEntity>())!.SingleOrDefaultAsync();
+            return specification.Build().Invoke(this.context.Set<TEntity>()).SingleOrDefaultAsync();
         }
 
         /// <summary>
