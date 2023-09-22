@@ -9,20 +9,9 @@
 
     using StoneAssemblies.EntityFrameworkCore.Exceptions;
 
-    /// <summary>
-    /// 
-    /// </summary>
     public static class DbContextExtensions
     {
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="entity"></param>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <returns></returns>
-        public static IEnumerable<object?> GetPrimaryKeyValues<TEntity>(this DbContext context, TEntity entity) 
+        public static IEnumerable<object?> GetPrimaryKeyValues<TEntity>(this DbContext context, TEntity entity)
             where TEntity : class
         {
             ArgumentNullException.ThrowIfNull(context);
@@ -45,14 +34,6 @@
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="storedEntity"></param>
-        /// <param name="entity"></param>
-        /// <param name="ignoreProperties"></param>
-        /// <typeparam name="TEntity"></typeparam>
         public static void UpdateEntity<TEntity>(this DbContext context, TEntity storedEntity, TEntity entity, params string[] ignoreProperties)
             where TEntity : class
         {
@@ -78,13 +59,6 @@
             context.Set<TEntity>().Update(storedEntity);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="entityType"></param>
-        /// <returns></returns>
-        /// <exception cref="EntityTypeException"></exception>
         public static IEntityType GetModelEntityType(this DbContext context, Type entityType)
         {
             ArgumentNullException.ThrowIfNull(context);
