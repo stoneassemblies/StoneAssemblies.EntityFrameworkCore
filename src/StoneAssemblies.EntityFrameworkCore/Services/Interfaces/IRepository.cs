@@ -8,8 +8,6 @@
 
     using Microsoft.EntityFrameworkCore.Storage;
 
-    using StoneAssemblies.EntityFrameworkCore.Specifications.Interfaces;
-
     /// <summary>
     /// The Repository interface.
     /// </summary>
@@ -67,6 +65,9 @@
         /// <param name="predicate">
         /// The predicate.
         /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
         int Count(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
@@ -75,6 +76,9 @@
         /// <param name="predicate">
         /// The predicate.
         /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
         Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
@@ -140,6 +144,12 @@
         /// <summary>
         /// Synchronize dirty entity.
         /// </summary>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
         Task SynchronizeEntityAsync(TEntity entity);
 
         /// <summary>
@@ -164,7 +174,7 @@
         /// <summary>
         /// Save changes async
         /// </summary>
-        /// <returns>Task</returns>
+        /// <returns>The Task</returns>
         Task SaveChangesAsync();
 
         /// <summary>
@@ -173,7 +183,12 @@
         /// <param name="entity">
         /// The entity.
         /// </param>
-        /// <param name="ignoreProperties"></param>
+        /// <param name="ignoreProperties">
+        /// Properties to be ignored.
+        /// </param>
+        /// <returns>
+        /// The <see cref="TEntity"/>.
+        /// </returns>
         TEntity TryAddOrUpdate(TEntity entity, params string[] ignoreProperties);
 
         /// <summary>

@@ -55,6 +55,13 @@
             return specification.Build().Invoke(this.context.Set<TEntity>()).Count();
         }
 
+        public int Count<TOutput>(ISpecification<TEntity, TOutput> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).Count();
+        }
+
         /// <summary>
         /// Counts entity matches with the specified specification.
         /// </summary>
@@ -62,6 +69,13 @@
         /// The specification.
         /// </param>
         public Task<int> CountAsync(ISpecification<TEntity> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).CountAsync();
+        }
+
+        public Task<int> CountAsync<TOutput>(ISpecification<TEntity, TOutput> specification)
         {
             ArgumentNullException.ThrowIfNull(specification);
 
@@ -78,6 +92,13 @@
         /// The entities.
         /// </returns>
         public IEnumerable<TEntity> Find(ISpecification<TEntity> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).ToList();
+        }
+
+        public IEnumerable<TOutput> Find<TOutput>(ISpecification<TEntity, TOutput> specification)
         {
             ArgumentNullException.ThrowIfNull(specification);
 
@@ -101,6 +122,22 @@
         }
 
         /// <summary>
+        /// Finds entities by specification async.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        public async Task<IEnumerable<TOutput>> FindAsync<TOutput>(ISpecification<TEntity, TOutput> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return await specification.Build().Invoke(this.context.Set<TEntity>()).ToListAsync();
+        }
+
+        /// <summary>
         /// The single.
         /// </summary>
         /// <param name="specification">
@@ -110,6 +147,22 @@
         /// The <see cref="TEntity"/>.
         /// </returns>
         public TEntity Single(ISpecification<TEntity> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).Single();
+        }
+
+        /// <summary>
+        /// Finds entities by specification async.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        public TOutput Single<TOutput>(ISpecification<TEntity, TOutput> specification)
         {
             ArgumentNullException.ThrowIfNull(specification);
 
@@ -133,6 +186,22 @@
         }
 
         /// <summary>
+        /// Gets a single by spec.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The <see cref="TEntity"/>.
+        /// </returns>
+        public Task<TOutput> SingleAsync<TOutput>(ISpecification<TEntity, TOutput> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).SingleAsync();
+        }
+
+        /// <summary>
         /// Gets a single or default by spec.
         /// </summary>
         /// <param name="specification">
@@ -142,6 +211,13 @@
         /// The <see cref="TEntity"/>.
         /// </returns>
         public TEntity? SingleOrDefault(ISpecification<TEntity> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).SingleOrDefault();
+        }
+
+        public TOutput? SingleOrDefault<TOutput>(ISpecification<TEntity, TOutput> specification)
         {
             ArgumentNullException.ThrowIfNull(specification);
 
@@ -162,6 +238,108 @@
             ArgumentNullException.ThrowIfNull(specification);
 
             return specification.Build().Invoke(this.context.Set<TEntity>()).SingleOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// Gets a single or default by spec async.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The <see cref="TEntity"/>.
+        /// </returns>
+        public Task<TOutput?> SingleOrDefaultAsync<TOutput>(ISpecification<TEntity, TOutput> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).SingleOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// Gets the first by spec.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The <see cref="TEntity"/>.
+        /// </returns>
+        public TEntity First(ISpecification<TEntity> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).First();
+        }
+
+        /// <summary>
+        /// Gets the first by spec.
+        /// </summary>
+        public TOutput First<TOutput>(ISpecification<TEntity, TOutput> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).First();
+        }
+
+        /// <summary>
+        /// Gets the first by spec async.
+        /// </summary>
+        public Task<TEntity> FirstAsync(ISpecification<TEntity> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).FirstAsync();
+        }
+
+        /// <summary>
+        /// Gets the first by spec async.
+        /// </summary>
+        public Task<TOutput> FirstAsync<TOutput>(ISpecification<TEntity, TOutput> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).FirstAsync();
+        }
+
+        /// <summary>
+        /// Gets the first or default by spec async.
+        /// </summary>
+        public TEntity? FirstOrDefault(ISpecification<TEntity> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gets the first or default by spec.
+        /// </summary>
+        public TOutput? FirstOrDefault<TOutput>(ISpecification<TEntity, TOutput> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gets the first or default by spec async.
+        /// </summary>
+        public Task<TEntity?> FirstOrDefaultAsync(ISpecification<TEntity> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).FirstOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// Gets the first or default by spec async.
+        /// </summary>
+        public Task<TOutput?> FirstOrDefaultAsync<TOutput>(ISpecification<TEntity, TOutput> specification)
+        {
+            ArgumentNullException.ThrowIfNull(specification);
+
+            return specification.Build().Invoke(this.context.Set<TEntity>()).FirstOrDefaultAsync();
         }
 
         /// <summary>

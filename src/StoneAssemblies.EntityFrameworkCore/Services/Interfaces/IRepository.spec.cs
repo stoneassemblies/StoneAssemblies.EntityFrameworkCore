@@ -38,7 +38,24 @@
         /// <param name="specification">
         /// The specification.
         /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
         int Count(ISpecification<TEntity> specification);
+
+        /// <summary>
+        /// Counts entity matches with the specified specification.
+        /// </summary>
+        /// <typeparam name="TOutput">
+        /// The output type.
+        /// </typeparam>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        int Count<TOutput>(ISpecification<TEntity, TOutput> specification);
 
         /// <summary>
         /// Counts entity matches with the specified specification.
@@ -46,15 +63,49 @@
         /// <param name="specification">
         /// The specification.
         /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
         Task<int> CountAsync(ISpecification<TEntity> specification);
+        
+        /// <summary>
+        /// Counts entity matches with the specified specification.
+        /// </summary>
+        /// <typeparam name="TOutput">
+        /// The output type.
+        /// </typeparam>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<int> CountAsync<TOutput>(ISpecification<TEntity, TOutput> specification);
 
         /// <summary>
         /// Finds entities by specification.
         /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
         /// <returns>
         /// The entities.
         /// </returns>
         IEnumerable<TEntity>? Find(ISpecification<TEntity> specification);
+
+        /// <summary>
+        /// Finds entities by specification async.
+        /// </summary>
+        /// <typeparam name="TOutput">
+        /// The output type.
+        /// </typeparam>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        IEnumerable<TOutput> Find<TOutput>(ISpecification<TEntity, TOutput> specification);
 
         /// <summary>
         /// Finds entities by specification.
@@ -68,7 +119,21 @@
         Task<IEnumerable<TEntity>> FindAsync(ISpecification<TEntity> specification);
 
         /// <summary>
-        /// Finds entities by specification.
+        /// Finds entities by specification async.
+        /// </summary>
+        /// <typeparam name="TOutput">
+        /// The output type.
+        /// </typeparam>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        Task<IEnumerable<TOutput>> FindAsync<TOutput>(ISpecification<TEntity, TOutput> specification);
+
+        /// <summary>
+        /// Finds single entity by specification.
         /// </summary>
         /// <param name="specification">
         /// The specification.
@@ -79,7 +144,21 @@
         TEntity Single(ISpecification<TEntity> specification);
 
         /// <summary>
-        /// Finds entities by specification async.
+        /// Finds single entity by specification.
+        /// </summary>
+        /// <typeparam name="TOutput">
+        /// The entity type.
+        /// </typeparam>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        TOutput Single<TOutput>(ISpecification<TEntity, TOutput> specification);
+
+        /// <summary>
+        /// Finds single entity by specification async.
         /// </summary>
         /// <param name="specification">
         /// The specification.
@@ -90,7 +169,21 @@
         Task<TEntity> SingleAsync(ISpecification<TEntity> specification);
 
         /// <summary>
-        /// Finds entities by specification.
+        /// Finds single entity by specification.
+        /// </summary>
+        /// <typeparam name="TOutput">
+        /// The output type.
+        /// </typeparam>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        Task<TOutput> SingleAsync<TOutput>(ISpecification<TEntity, TOutput> specification);
+
+        /// <summary>
+        /// Finds single or default entity by specification.
         /// </summary>
         /// <param name="specification">
         /// The specification.
@@ -101,7 +194,21 @@
         TEntity? SingleOrDefault(ISpecification<TEntity> specification);
 
         /// <summary>
-        /// Finds entities by specification async.
+        /// Finds single or default entity by specification.
+        /// </summary>
+        /// <typeparam name="TOutput">
+        /// The output type.
+        /// </typeparam>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        TOutput? SingleOrDefault<TOutput>(ISpecification<TEntity, TOutput> specification);
+
+        /// <summary>
+        /// Finds single or default entity by specification async.
         /// </summary>
         /// <param name="specification">
         /// The specification.
@@ -110,6 +217,120 @@
         /// The entities.
         /// </returns>
         Task<TEntity?> SingleOrDefaultAsync(ISpecification<TEntity> specification);
+
+        /// <summary>
+        /// Finds single or default entity by specification async.
+        /// </summary>
+        /// <typeparam name="TOutput">
+        /// The output type.
+        /// </typeparam>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        Task<TOutput?> SingleOrDefaultAsync<TOutput>(ISpecification<TEntity, TOutput> specification);
+
+        /// <summary>
+        /// Finds first entity by specification.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        TEntity First(ISpecification<TEntity> specification);
+
+        /// <summary>
+        /// Finds first entity by specification.
+        /// </summary>
+        /// <typeparam name="TOutput">
+        /// The entity type.
+        /// </typeparam>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        TOutput First<TOutput>(ISpecification<TEntity, TOutput> specification);
+
+        /// <summary>
+        /// Finds first entity by specification async.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        Task<TEntity> FirstAsync(ISpecification<TEntity> specification);
+        
+        /// <summary>
+        /// Finds first entity by specification async.
+        /// </summary>
+        /// <typeparam name="TOutput">
+        /// The output type.
+        /// </typeparam>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        Task<TOutput> FirstAsync<TOutput>(ISpecification<TEntity, TOutput> specification);
+
+        /// <summary>
+        /// Finds first or default entity by specification.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        TEntity? FirstOrDefault(ISpecification<TEntity> specification);
+
+        /// <summary>
+        /// Finds first or default by specification.
+        /// </summary>
+        /// <typeparam name="TOutput">
+        /// The output type.
+        /// </typeparam>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        TOutput? FirstOrDefault<TOutput>(ISpecification<TEntity, TOutput> specification);
+
+        /// <summary>
+        /// Finds first or default by specification async.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        Task<TEntity?> FirstOrDefaultAsync(ISpecification<TEntity> specification);
+        
+        /// <summary>
+        /// Finds first or default by specification async.
+        /// </summary>
+        /// <typeparam name="TOutput">
+        /// The output type.
+        /// </typeparam>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        Task<TOutput?> FirstOrDefaultAsync<TOutput>(ISpecification<TEntity, TOutput> specification);
 
         /// <summary>
         /// Delete entities match with the specified predicate.
