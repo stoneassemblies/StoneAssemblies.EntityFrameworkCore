@@ -39,14 +39,5 @@
     /// </typeparam>
     public interface IUnitOfWork<TDbContext> : IUnitOfWork
     {
-        /// <summary>
-        /// Gets a repository instance.
-        /// </summary>
-        /// <typeparam name="TEntity">The entity type</typeparam>
-        /// <returns>
-        /// The repository instance.
-        /// </returns>
-        IRepository<TEntity> GetRepository<TEntity>()
-            where TEntity : class;
     }
 }
