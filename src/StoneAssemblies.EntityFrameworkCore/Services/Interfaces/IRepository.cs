@@ -139,7 +139,29 @@
         /// <returns>
         /// The entity.
         /// </returns>
-        Task<TEntity?> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity?> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);   
+        
+        /// <summary>
+        /// Finds the first entity matches with the specified predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicates
+        /// </param>
+        /// <returns>
+        /// The entity.
+        /// </returns>
+        Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Finds the first entity matches with the specified predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicates
+        /// </param>
+        /// <returns>
+        /// The entity.
+        /// </returns>
+        Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
         /// Synchronize dirty entity.

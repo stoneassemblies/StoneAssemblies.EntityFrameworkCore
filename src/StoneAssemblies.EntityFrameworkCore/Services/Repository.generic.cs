@@ -286,6 +286,20 @@
             return this.context.Set<TEntity>().SingleOrDefaultAsync(predicate);
         }
 
+        public Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            ArgumentNullException.ThrowIfNull(predicate);
+
+            return this.context.Set<TEntity>().FirstAsync(predicate);
+        }
+
+        public Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            ArgumentNullException.ThrowIfNull(predicate);
+
+            return this.context.Set<TEntity>().FirstOrDefaultAsync(predicate);
+        }
+
         /// <summary>
         /// Sync dirty entities.
         /// </summary>
