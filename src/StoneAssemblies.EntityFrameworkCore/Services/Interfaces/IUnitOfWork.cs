@@ -29,6 +29,16 @@
         /// The <see cref="IDbContextTransaction" />.
         /// </returns>
         IDbContextTransaction BeginTransaction();
+
+        /// <summary>
+        /// Gets the current transaction.
+        /// </summary>
+        IDbContextTransaction? CurrentTransaction { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the unit of work is in a transaction.
+        /// </summary>
+        bool IsInTransaction { get; }
     }
 
     /// <summary>

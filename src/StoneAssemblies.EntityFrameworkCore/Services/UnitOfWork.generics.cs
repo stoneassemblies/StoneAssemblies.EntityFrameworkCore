@@ -94,5 +94,15 @@
         {
             return this.context.Database.BeginTransaction();
         }
+
+        /// <summary>
+        /// Gets the current transaction.
+        /// </summary>
+        public IDbContextTransaction? CurrentTransaction => this.context.Database.CurrentTransaction;
+
+        /// <summary>
+        /// Gets a value indicating whether the unit of work is in a transaction.
+        /// </summary>
+        public bool IsInTransaction => this.CurrentTransaction is not null;
     }
 }
