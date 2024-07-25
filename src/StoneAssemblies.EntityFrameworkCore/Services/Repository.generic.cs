@@ -98,6 +98,16 @@
         }
 
         /// <summary>
+        /// Gets the current transaction.
+        /// </summary>
+        public IDbContextTransaction? CurrentTransaction => this.context.Database.CurrentTransaction;
+
+        /// <summary>
+        /// Gets a value indicating whether the unit of work is in a transaction.
+        /// </summary>
+        public bool IsInTransaction => this.CurrentTransaction is not null;
+
+        /// <summary>
         /// Indicates whether at least one entity matches with the specified predicate.
         /// </summary>
         /// <param name="predicate">

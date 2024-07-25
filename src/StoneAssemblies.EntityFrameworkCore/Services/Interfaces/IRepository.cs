@@ -20,6 +20,35 @@
         /// The <see cref="Task"/>.
         /// </returns>
         Task SynchronizeEntitiesAsync();
+
+        /// <summary>
+        /// The begin transaction.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IDbTransaction" />.
+        /// </returns>
+        IDbContextTransaction BeginTransaction();
+
+        /// <summary>
+        /// The begin transaction.
+        /// </summary>
+        /// <param name="isolationLevel">
+        /// The isolation Level.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IDbTransaction"/>.
+        /// </returns>
+        IDbContextTransaction BeginTransaction(IsolationLevel isolationLevel);
+
+        /// <summary>
+        /// Gets the current transaction.
+        /// </summary>
+        IDbContextTransaction? CurrentTransaction { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the unit of work is in a transaction.
+        /// </summary>
+        bool IsInTransaction { get; }
     }
 
     /// <summary>
@@ -173,25 +202,6 @@
         /// The <see cref="Task"/>.
         /// </returns>
         Task SynchronizeEntityAsync(TEntity entity);
-
-        /// <summary>
-        /// The begin transaction.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="IDbTransaction" />.
-        /// </returns>
-        IDbContextTransaction BeginTransaction();
-
-        /// <summary>
-        /// The begin transaction.
-        /// </summary>
-        /// <param name="isolationLevel">
-        /// The isolation Level.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IDbTransaction"/>.
-        /// </returns>
-        IDbContextTransaction BeginTransaction(IsolationLevel isolationLevel);
 
         /// <summary>
         /// Save changes async
