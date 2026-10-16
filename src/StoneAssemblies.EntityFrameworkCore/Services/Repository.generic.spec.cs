@@ -1,12 +1,13 @@
 ﻿namespace StoneAssemblies.EntityFrameworkCore.Services
 {
+    using System.Linq.Expressions;
+    using Microsoft.EntityFrameworkCore.Query;
+
+    using Microsoft.EntityFrameworkCore;
+    using StoneAssemblies.EntityFrameworkCore.Specifications.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using Microsoft.EntityFrameworkCore;
-
-    using StoneAssemblies.EntityFrameworkCore.Specifications.Interfaces;
 
     public partial class Repository<TEntity, TDbContext>
     {
@@ -356,6 +357,23 @@
             {
                 this.context.Set<TEntity>().RemoveRange(entities);
             }
+        }
+
+        /// <summary>
+        /// Executes a bulk update on entities that match the specified specification.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <param name="setPropertyCalls">
+        /// The property assignments.
+        /// </param>
+        /// <returns>
+        /// The number of affected rows.
+        /// </returns>
+        public Task<int> ExecuteUpdateAsync(ISpecification<TEntity> specification, Expression<Func<SetPropertyCalls<TEntity>, SetPropertyCalls<TEntity>>> setPropertyCalls)
+        {
+            return specification.Build().Invoke(this.context.Set<TEntity>()).ExecuteUpdateAsync(setPropertyCalls);
         }
     }
 }

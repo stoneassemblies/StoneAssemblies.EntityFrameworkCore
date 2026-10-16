@@ -1,6 +1,8 @@
 ﻿namespace StoneAssemblies.EntityFrameworkCore.Services.Interfaces
 {
+    using Microsoft.EntityFrameworkCore.Query;
     using StoneAssemblies.EntityFrameworkCore.Specifications.Interfaces;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// The Repository interface.
@@ -339,5 +341,19 @@
         /// The specification
         /// </param>
         void Delete(ISpecification<TEntity> specification);
+
+        /// <summary>
+        /// Executes a bulk update on entities that match the specified specification.
+        /// </summary>
+        /// <param name="specification">
+        /// The specification.
+        /// </param>
+        /// <param name="setPropertyCalls">
+        /// The property assignments.
+        /// </param>
+        /// <returns>
+        /// The number of affected rows.
+        /// </returns>
+        Task<int> ExecuteUpdateAsync(ISpecification<TEntity> specification, Expression<Func<SetPropertyCalls<TEntity>, SetPropertyCalls<TEntity>>> setPropertyCalls);
     }
 }

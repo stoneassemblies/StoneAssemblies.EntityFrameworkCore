@@ -1,4 +1,6 @@
-﻿namespace StoneAssemblies.EntityFrameworkCore.Services
+﻿using Microsoft.EntityFrameworkCore.Query;
+
+namespace StoneAssemblies.EntityFrameworkCore.Services
 {
     using System;
     using System.Collections.Generic;
@@ -139,6 +141,24 @@
             return this.context.Set<TEntity>().AnyAsync(predicate);
         }
 
+
+        /// <summary>
+        /// Executes a bulk update on entities that match the specified predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicate.
+        /// </param>
+        /// <param name="setPropertyCalls">
+        /// The property assignments.
+        /// </param>
+        /// <returns>
+        /// The number of affected rows.
+        /// </returns>
+        public Task<int> ExecuteUpdateAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<SetPropertyCalls<TEntity>, SetPropertyCalls<TEntity>>> setPropertyCalls)
+        {
+            return this.context.Set<TEntity>().Where(predicate).ExecuteUpdateAsync(setPropertyCalls);
+        }
+
         /// <summary>
         /// Delete an entity.
         /// </summary>
@@ -179,6 +199,22 @@
             ArgumentNullException.ThrowIfNull(predicate);
 
             return this.context.Set<TEntity>().Where(predicate);
+        }
+
+        /// <summary>
+        /// Finds entities match with the specified predicate async.
+        /// </summary>
+        /// <param name="predicate">
+        ///  The predicates.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        public Task<IQueryable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            ArgumentNullException.ThrowIfNull(predicate);
+
+            return Task.FromResult(this.context.Set<TEntity>().Where(predicate));
         }
 
         /// <summary>

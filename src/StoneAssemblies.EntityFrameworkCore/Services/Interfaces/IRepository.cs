@@ -1,4 +1,7 @@
-﻿namespace StoneAssemblies.EntityFrameworkCore.Services.Interfaces
+﻿using Microsoft.EntityFrameworkCore.Query;
+using StoneAssemblies.EntityFrameworkCore.Specifications.Interfaces;
+
+namespace StoneAssemblies.EntityFrameworkCore.Services.Interfaces
 {
     using System.Data;
 
@@ -137,6 +140,18 @@
         /// </returns>
         IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 
+
+        /// <summary>
+        /// Finds entities match with the specified predicate async.
+        /// </summary>
+        /// <param name="predicate">
+        ///     The predicates.
+        /// </param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        Task<IQueryable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
+
         /// <summary>
         /// Finds a single entity matches with the specified predicate.
         /// </summary>
@@ -210,7 +225,7 @@
         Task SaveChangesAsync();
 
         /// <summary>
-        /// Try add or update
+        /// Try adds or updates
         /// </summary>
         /// <param name="entity">
         /// The entity.
@@ -241,6 +256,22 @@
         /// <c>True</c> if at least one entity matches with the predicates otherwise <c>False</c>.
         /// </returns>
         Task<bool> ContainsAsync(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Executes a bulk update on entities that match the specified predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicate.
+        /// </param>
+        /// <param name="setPropertyCalls">
+        /// The property assignments.
+        /// </param>
+        /// <returns>
+        /// The number of affected rows.
+        /// </returns>
+        Task<int> ExecuteUpdateAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            Expression<Func<SetPropertyCalls<TEntity>, SetPropertyCalls<TEntity>>> setPropertyCalls);
     }
 
     /// <summary>
